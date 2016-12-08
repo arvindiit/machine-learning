@@ -1,0 +1,73 @@
+{
+  "settings":{
+    "index":{
+      "analysis":{
+        "analyzer":{
+          "analyzer_lowercase":{
+            "filter":"lowercase",
+            "tokenizer":"keyword"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "news-article": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "companies": {
+          "properties": {
+            "kvk": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "name": {
+              "type": "string",
+              "copy_to": "companies.name_facet"
+            },
+            "name_facet":{
+              "type":"string",
+              "analyzer":"analyzer_lowercase",
+              "include_in_all": false
+            },
+            "sectors": {
+              "type": "string"
+            }
+          }
+        },
+        "date": {
+          "type": "date",
+          "format": "yyyy-MM-dd'T'HH:mm:ssZ",
+          "include_in_all": false
+        },
+        "source": {
+          "type": "string",
+          "index": "not_analyzed",
+          "include_in_all": false
+        },
+        "sentiment": {
+          "type": "string",
+          "index": "not_analyzed",
+          "include_in_all": false
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "string",
+          "copy_to": "tags_facet"
+        },
+        "tags_facet":{
+          "type":"string",
+          "analyzer":"analyzer_lowercase",
+          "include_in_all": false
+        }
+      }
+    }
+  }
+}
